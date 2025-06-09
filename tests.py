@@ -30,10 +30,10 @@ class TestBooksCollector:
     @pytest.mark.parametrize("book, genre", [
         ("Маша и волшебный крендель", "Фантастика"),
     ])
-    def test_get_book_genre(self, test_book_collector, book, genre):
+    def test_get_book_genre_existing_book_returns_correct_genre(self, test_book_collector, book, genre):
         test_book_collector.add_new_book("Маша и волшебный крендель")
         test_book_collector.set_book_genre("Маша и волшебный крендель", "Фантастика")
-        assert test_book_collector.get_books_genre() is not None
+        assert test_book_collector.get_books_genre() == test_book_collector.books_genre
 
     @pytest.mark.parametrize("book, genre", [
         ("Маша и волшебный крендель", "Фантастика"),
@@ -49,7 +49,7 @@ class TestBooksCollector:
         test_book_collector.add_new_book("1000 и 1 способ дышать")
         test_book_collector.set_book_genre("1000 и 1 способ дышать", "Комедии")
         books = test_book_collector.get_books_with_specific_genre(genre = "Фантастика")
-        assert len(books) == 1
+        assert books == ["Маша и волшебный крендель"]
 
     @pytest.mark.parametrize("book, genre", [
         ("Колобок", "Фантастика"),
